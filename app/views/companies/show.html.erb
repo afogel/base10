@@ -1,0 +1,16 @@
+<div class="sm:flex sm:items-center mb-4">
+  <div class="sm:flex-auto">
+    <div class="text-sm breadcrumbs">
+      <ul>
+        <li class="text-base font-semibold leading-6 text-base-content breadcrumbs"><%= link_to "Companies", companies_path %></li>
+        <li class="text-base font-semibold leading-6 text-base-content breadcrumbs"><%= @company.name%></li>
+      </ul>
+    </div>
+    <p class="mt-2 text-sm text-base-content">
+      <%= @company.name%>'s financials.
+    </p>
+  </div>
+  <div class="col-sm-6 text-end">
+    <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
+  </div>
+</div>

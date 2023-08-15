@@ -66,6 +66,8 @@ group :development do
   # Annotate models
   gem 'annotate'
   gem 'rails-erd'
+  gem 'better_errors'
+  gem "binding_of_caller"
 end
 
 group :test do
@@ -92,6 +94,7 @@ gem "whenever", require: false
 gem "responders", github: "heartcombo/responders", branch: "main"
 gem "view_component"
 gem "image_processing"
+gem "pagy"
 
 gem "nokogiri"
 gem "typhoeus"

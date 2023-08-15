@@ -14,13 +14,15 @@ module.exports = {
     "./app/javascript/**/*.js",
   ],
   daisyui: {
-    themes: ["emerald"],
     themes: [
       {
         emerald: {
           ...require("daisyui/src/theming/themes")["[data-theme=emerald]"],
           primary: "#45aeeb",
           "primary-focus": "#1d94da",
+          ".bg-primary": {
+            "background-color": "#45aeeb",
+          },
           ".success-flash": {
             "background-color": colors.green[100],
             "border-color": colors.green[700],

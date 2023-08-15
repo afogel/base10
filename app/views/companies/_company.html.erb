@@ -1,0 +1,14 @@
+<tr is="turbo-frame" id="<%= dom_id(company) %>" class='hover'>
+    <td>
+    <%= link_to company do %> 
+      <%= company.name %>
+    <% end %>
+  </td>
+  <td><%= industry_names(company) %></td>
+  <td><%= segment_names(company) %></td>
+  <td><%= business_model_names(company) %></td>
+  <td><%= company.round %></td>
+  <td><%= company.hq_city %></td>
+  <td><%= company.hq_country %></td>
+  <td><%= link_to "Edit", edit_company_path(company), class: "text-primary hover:text-primary" %></td>
+</tr>
