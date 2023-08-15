@@ -77,6 +77,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     bcrypt (3.1.19)
     bindex (0.8.1)
     bootsnap (1.16.0)
@@ -91,6 +94,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    choice (0.2.0)
     chronic (0.10.2)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
@@ -110,6 +114,8 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.12.0)
+    ethon (0.16.0)
+      ffi (>= 1.15.0)
     faraday (2.7.10)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -254,6 +260,11 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
+    rails-erd (1.7.2)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
@@ -272,6 +283,8 @@ GEM
     reline (0.3.7)
       io-console (~> 0.5)
     rexml (3.2.6)
+    ruby-graphviz (1.2.5)
+      rexml
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
@@ -305,6 +318,8 @@ GEM
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -341,6 +356,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  annotate
   bootsnap
   capybara
   cssbundling-rails
@@ -353,6 +369,7 @@ DEPENDENCIES
   jsbundling-rails
   madmin
   name_of_person
+  nokogiri
   noticed
   omniauth-facebook
   omniauth-github
@@ -362,6 +379,7 @@ DEPENDENCIES
   puma (~> 5.0)
   pundit
   rails (~> 7.0.7)
+  rails-erd
   redis (~> 4.0)
   responders!
   selenium-webdriver
@@ -370,6 +388,7 @@ DEPENDENCIES
   sprockets-rails
   stimulus-rails
   turbo-rails
+  typhoeus
   tzinfo-data
   view_component
   web-console

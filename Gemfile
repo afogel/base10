@@ -62,6 +62,10 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  
+  # Annotate models
+  gem 'annotate'
+  gem 'rails-erd'
 end
 
 group :test do
@@ -88,3 +92,6 @@ gem "whenever", require: false
 gem "responders", github: "heartcombo/responders", branch: "main"
 gem "view_component"
 gem "image_processing"
+
+gem "nokogiri"
+gem "typhoeus"

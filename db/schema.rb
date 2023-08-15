@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_15_051132) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_15_080701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,43 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_15_051132) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "business_models", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "business_models_companies", id: false, force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "business_model_id", null: false
+    t.index ["business_model_id", "company_id"], name: "business_model_company_index"
+    t.index ["company_id", "business_model_id"], name: "company_business_model_index"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "domain"
+    t.string "hq_city"
+    t.string "hq_state"
+    t.integer "founding_year"
+    t.string "hq_zip_code"
+    t.string "hq_country"
+    t.string "investors"
+    t.string "founders"
+    t.string "round"
+    t.string "raised"
+    t.integer "employee_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "companies_segments", id: false, force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "segment_id", null: false
+    t.index ["company_id", "segment_id"], name: "index_companies_segments_on_company_id_and_segment_id"
+    t.index ["segment_id", "company_id"], name: "index_companies_segments_on_segment_id_and_company_id"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -60,6 +97,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_15_051132) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "industries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -72,6 +115,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_15_051132) do
     t.datetime "updated_at", null: false
     t.index ["read_at"], name: "index_notifications_on_read_at"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
+  create_table "segments", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "industry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_segments_on_industry_id"
   end
 
   create_table "services", force: :cascade do |t|
