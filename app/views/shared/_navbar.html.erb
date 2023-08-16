@@ -7,17 +7,15 @@
     <div
       class="bg-base-100 sticky top-0 z-20 hidden items-center gap-2 bg-opacity-90 px-4 py-2 backdrop-blur lg:flex shadow-sm"
     >
-      <%= link_to Rails.configuration.application_name, root_path, class: "text-2xl font-bold" %>
+      <%= link_to Rails.configuration.application_name, companies_path, class: "text-2xl font-bold" %>
     </div>
     <div class="h-4"></div>
     <ul class="menu menu-sm lg:menu-md px-4 py-0">
       <% if user_signed_in? %>
         <% [
-          {title: 'Dashboard', url: root_path, icon: 'fa-solid fa-house'},
-          {title: 'Announcements', url: announcements_path, icon: 'fa-solid fa-house'},
-          {title: 'Notifications', url: notifications_path, icon: 'fa-solid fa-house'},
+          {title: 'Dashboard', url: companies_path, icon: 'fa-solid fa-house'},
           ].each do |link| %>
-          <%= render Nav::LinkComponent.new(title: link[:title], url: link[:url]) %>
+          <%= render Nav::LinkComponent.new(title: link[:title], url: link[:url], icon: link[:icon]) %>
         <% end %>
       <% else %>
         <% [
@@ -54,7 +52,7 @@
 <div class="bg-base-100 drawer lg:drawer-open">
   <div class="flex grow flex-col gap-y-5 overflow-y-auto px-6">
     <div class="flex h-16 shrink-0 items-center">
-      <%= link_to Rails.configuration.application_name, root_path, class: "text-2xl font-bold" %>
+      <%= link_to Rails.configuration.application_name, companies_path, class: "text-2xl font-bold" %>
     </div>
     <nav class="flex flex-1 flex-col">
       <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -62,9 +60,7 @@
           <ul role="list" class="-mx-2 space-y-1">
             <% if user_signed_in? %>
               <% [
-                {title: 'Dashboard', url: root_path, icon: 'fa-solid fa-house'},
-                {title: 'Announcements', url: announcements_path, icon: 'fa-solid fa-house'},
-                {title: 'Notifications', url: notifications_path, icon: 'fa-solid fa-house'},
+                {title: 'Dashboard', url: companies_path, icon: 'fa-solid fa-house'},
                 ].each do |link| %>
                 <%= render Nav::LinkComponent.new(title: link[:title], url: link[:url]) %>
               <% end %>
