@@ -68,6 +68,7 @@ group :development do
   gem 'rails-erd'
   gem 'better_errors'
   gem "binding_of_caller"
+  gem 'erb-formatter'
 end
 
 group :test do
@@ -98,3 +99,4 @@ gem "pagy"
 
 gem "nokogiri"
 gem "typhoeus"
+gem "activerecord-cte", "~> 0.3.0"
