@@ -91,3 +91,64 @@ industries.each do |industry_raw|
     end
   end
 end
+
+sources = [
+  {
+    name: 'pitch deck',
+    location: 'some url'
+  },
+  {
+    name: 'call notes',
+    location: 'some url'
+  },
+  {
+    name: 'call notes 2',
+    location: 'some url'
+  }
+]
+
+sources.each do |source|
+  Source.find_or_create_by!(
+    name: source[:name], location: source[:location]
+  )
+end
+
+user = User.create(name: 'Ariel Fogel', email: 'fogeltine@gmail.com', password: 'password', admin: true)
+potential_values = {
+  arpu: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  cac: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  cash_burn: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  cash_on_hand: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  customer_count: 1000.times.map { rand(1000..10000000) % 2 == 0 ? nil : rand(1000..10000000) },
+  ebitda: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  entry_date: 1000.times.map { Date.today - rand(1..1000) },
+  entry_period: [:annual, :quarterly, :monthly],
+  gross_profit: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  gross_profit_pct: 1000.times.map { rand < 0.5 == 0 ? nil : (rand * 100.0).truncate(2) },
+  ltv: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) },
+  next_fundraise_at: 1000.times.map { Date.today + rand(1..1000) },
+  revenue: 1000.times.map { rand(1..1000) % 2 == 0 ? nil : rand(1..1000) }
+}
+source_records = Source.all
+Company.all.each_with_index do |company, idx|
+  # randomly create 1-5 entries for each company
+  rand(1..5).times do
+    company.company_entries.create(
+      user: user,
+      source: source_records.sample,
+      entry_date: potential_values[:entry_date].sample,
+      entry_period: potential_values[:entry_period].sample,
+      revenue: potential_values[:revenue].sample,
+      cash_burn: potential_values[:cash_burn].sample,
+      gross_profit: potential_values[:gross_profit].sample,
+      gross_profit_pct: potential_values[:gross_profit_pct].sample,
+      ebitda: potential_values[:ebitda].sample,
+      cash_on_hand: potential_values[:cash_on_hand].sample,
+      cac: potential_values[:cac].sample,
+      ltv: potential_values[:ltv].sample,
+      arpu: potential_values[:arpu].sample,
+      customer_count: potential_values[:customer_count].sample,
+      next_fundraise_at: potential_values[:next_fundraise_at].sample
+    )
+  end
+end

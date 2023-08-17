@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   authenticate :user do
     resources :companies, only: [:index, :show, :edit] do
+      resources :company_entries
     end
   end
 

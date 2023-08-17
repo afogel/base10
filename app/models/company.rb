@@ -26,8 +26,10 @@
 class Company < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
-  
+
   has_and_belongs_to_many :segments
   has_many :industries, through: :segments
   has_and_belongs_to_many :business_models
+
+  has_many :company_entries, dependent: :destroy
 end

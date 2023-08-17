@@ -1,0 +1,17 @@
+  <%= content_tag :tr, id: dom_id(company_entry), class: "#{dom_class(company_entry)} drawer-button" do %>
+    <label for="detail-drawer" class="drawer-button">
+    <td><%= link_to company_entry.company do %><%= company_entry.name %><% end %></td>
+    <td><%= company_entry.segments.map(&:name).join(", ") %></td>
+    <td><%= number_to_currency(company_entry.revenue_annualized) %></td>
+    <td><%= number_to_currency(company_entry.cash_burn_annualized) %></td>
+    <td><%= number_to_currency(company_entry.gross_profit_annualized) %></td>
+    <td><%= number_to_percentage(company_entry.gross_profit_pct, precision: 2) %></td>
+    <td><%= number_to_currency(company_entry.ebitda_annualized) %></td>
+    <td><%= number_to_currency(company_entry.cash_on_hand) %></td>
+    <td><%= number_to_currency(company_entry.cac) %></td>
+    <td><%= number_to_currency(company_entry.ltv) %></td>
+    <td><%= number_to_currency(company_entry.arpu) %></td>
+    <td><%= company_entry.customer_count %></td>
+    <td><%= company_entry.next_fundraise_at %></td>
+  </label>
+<% end %>

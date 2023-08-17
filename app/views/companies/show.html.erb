@@ -11,6 +11,62 @@
     </p>
   </div>
   <div class="col-sm-6 text-end">
+    <%#= link_to "Add new data entry", new_company_data_entry_path(@company), class: 'btn btn-primary' %>
+    <%= link_to "Add new data entry", new_company_company_entry_path(@company), class: 'btn btn-primary' %>
     <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
   </div>
 </div>
+<%= form_with url: "", method: :get, data: { turbo_frame: "company_entries", turbo_action: "advance" } do |form| %>
+  Show <%= form.select :count, options_for_select([10, 25, 50, 100], selected: params[:count]), {}, { onchange: "this.form.requestSubmit()" } %>
+
+  Search <%= form.search_field :query, value: params[:query], oninput: "this.form.requestSubmit()" %>
+<% end %>
+
+<%= turbo_frame_tag "company_entries" do %>
+  <div class="overflow-x-auto">
+    <table class="table table-zebra table-pin-rows">
+      <thead>
+        <tr>
+          <th> <%= sort_link_to "Entry date", :entry_date , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "User", :user_id , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Source", :source_id , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Entry period", :entry_period , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Revenue", :revenue , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Cash burn", :cash_burn , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Gross profit", :gross_profit , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Gross profit pct", :gross_profit_pct , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "EBITDA", :ebitda , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Cash on hand", :cash_on_hand , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Cac", :cac , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Ltv", :ltv , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Arpu", :arpu , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Customer count", :customer_count , data: { turbo_action: "advance" } %></th>
+          <th> <%= sort_link_to "Next fundraise", :next_fundraise_at , data: { turbo_action: "advance" } %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @company_entries.each do |company_entry| %>
+          <%= content_tag :tr, id: dom_id(company_entry), class: dom_class(company_entry) do %>
+              <td><%= company_entry.entry_date %></td>
+              <td><%= company_entry.user.name %></td>
+              <td><%= company_entry.source.name %></td>
+              <td><%= company_entry.entry_period %></td>
+              <td><%= company_entry.revenue %></td>
+              <td><%= company_entry.cash_burn %></td>
+              <td><%= company_entry.gross_profit %></td>
+              <td><%= company_entry.gross_profit_pct %></td>
+              <td><%= company_entry.ebitda %></td>
+              <td><%= company_entry.cash_on_hand %></td>
+              <td><%= company_entry.cac %></td>
+              <td><%= company_entry.ltv %></td>
+              <td><%= company_entry.arpu %></td>
+              <td><%= company_entry.customer_count %></td>
+              <td><%= company_entry.next_fundraise_at %></td>
+              <td><%= link_to 'Edit', edit_company_company_entry_path(@company, company_entry), data: { turbo_frame: '_top' } %></td>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
