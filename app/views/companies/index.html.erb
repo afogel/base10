@@ -1,6 +1,6 @@
-<div class="drawer drawer-end">
-  <input id="detail-drawer" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
+<div class="drawer drawer-end" data-controller='toggle-drawer'>
+  <input id="detail-drawer" type="checkbox" class="drawer-toggle" data-toggle-drawer-target="checkbox" />
+  <div class="drawer-content w-11/12">
     <div class="sm:flex sm:items-center mb-4">
       <div class="sm:flex-auto">
         <div class="text-sm breadcrumbs">
@@ -23,11 +23,8 @@
     <%= render "table", locals: { companies: @companies } %>
   </div> 
   <div class="drawer-side">
-    <label for="detail-drawer" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 h-full bg-base-200 text-base-content">
-      <!-- Sidebar content here -->
-      <li><a>Sidebar Item 1</a></li>
-      <li><a>Sidebar Item 2</a></li>
-    </ul>
+    <label for="detail-drawer" class="drawer-overlay bg-base-100/0"></label>
+    <div id="company_detail_overview" class="p-4 w-3/6 h-full bg-base-100 text-base-content">
+    </div>
   </div>
 </div>
