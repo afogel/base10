@@ -4,7 +4,8 @@ class CompanyEntriesController < ApplicationController
 
   # GET /company_entries or /company_entries.json
   def index
-    @company_entries = CompanyEntry.all
+    @company_entries = CompanyEntry.where(company: @company).order(entry_date: :desc)
+    @annualized = params[:annualized] ? params[:annualized] == "true" : true
   end
 
   # GET /company_entries/1 or /company_entries/1.json

@@ -19,6 +19,7 @@ class CompaniesController < ApplicationController
       @company.company_entries.reorder(sort_column => sort_direction), 
       items: params.fetch(:count, 10)
     )
+    @annualized = params[:annualized] ? params[:annualized] == "true" : true
   end
 
   # GET /companies/new

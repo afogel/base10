@@ -1,8 +1,6 @@
 <tr is="turbo-frame" id="<%= dom_id(company) %>" class='hover'>
-    <td>
-    <%= link_to company do %> 
-      <%= company.name %>
-    <% end %>
+  <td>
+    <%= company.name %>
   </td>
   <td><%= industry_names(company) %></td>
   <td><%= segment_names(company) %></td>

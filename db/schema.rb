@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_17_142432) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_20_133009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,9 +114,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_142432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.virtual "revenue_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (revenue * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (revenue * 4)\n    ELSE revenue\nEND", stored: true
-    t.virtual "cash_burn_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (revenue * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (revenue * 4)\n    ELSE revenue\nEND", stored: true
-    t.virtual "gross_profit_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (revenue * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (revenue * 4)\n    ELSE revenue\nEND", stored: true
-    t.virtual "ebitda_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (revenue * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (revenue * 4)\n    ELSE revenue\nEND", stored: true
+    t.virtual "cash_burn_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (cash_burn * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (cash_burn * 4)\n    ELSE cash_burn\nEND", stored: true
+    t.virtual "gross_profit_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (gross_profit * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (gross_profit * 4)\n    ELSE gross_profit\nEND", stored: true
+    t.virtual "ebitda_annualized", type: :integer, as: "\nCASE\n    WHEN (entry_period = 'month'::entry_period) THEN (ebitda * 12)\n    WHEN (entry_period = 'quarter'::entry_period) THEN (ebitda * 4)\n    ELSE ebitda\nEND", stored: true
     t.index ["company_id"], name: "index_company_entries_on_company_id"
     t.index ["source_id"], name: "index_company_entries_on_source_id"
     t.index ["user_id"], name: "index_company_entries_on_user_id"
