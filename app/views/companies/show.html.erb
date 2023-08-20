@@ -6,11 +6,74 @@
         <li class="text-base font-semibold leading-6 text-base-content breadcrumbs"><%= @company.name%></li>
       </ul>
     </div>
-    <p class="mt-2 text-sm text-base-content">
-      <%= @company.name%>'s financials.
-    </p>
   </div>
-  <div class="col-sm-6 text-end">
-    <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
-  </div>
+</div>
+<div class="mb-12 flex flex-col">
+  <h2 class="text-6xl font-semibold leading-7 text-base-content w-full text-left mb-8 pl-4 flex justify-between"> 
+    <%= @company.name %>
+    <div class="col-sm-6 text-end">
+      <%= link_to "Add new data entry", new_company_company_entry_path(@company), class: 'btn btn-primary' %>
+    </div>  
+  </h2>
+  <table class="table col-span-full">
+    <tbody>
+      <tr class='border-b-0 leading-6'>
+        <td class="py-1 text-base font-semibold leading-7 text-neutral-800 ">
+          Company Overview
+        </td>
+        <td class="py-1 text-base-content/60">Industries</td>
+        <td class="py-1 font-bold">
+          <%= industry_names(@company)%>
+        </td>
+      </tr>
+      <tr class='border-b-0 leading-6'>
+        <td></td>
+        <td class="py-1 text-base-content/60">Segments</td>
+        <td class="py-1 font-bold">
+          <%= segment_names(@company)%>
+        </td>
+      </tr>
+      <tr class='border-b-0 leading-6'>
+        <td></td>
+        <td class="py-1 text-base-content/60">Business Models</td>
+        <td class="py-1 font-bold">
+          <%= business_model_names(@company)%>
+        </td>
+      </tr>
+      <tr class='leading-6 pb-16'>
+        <td class='pb-4'></td>
+        <td class="py-1 text-base-content/60">Round</td>
+        <td class="py-1 font-bold">
+          <%= @company.round%>
+        </td>
+      </tr>
+      <tr class='border-b-0 leading-6'>
+        <td class="py-1 text-base font-semibold leading-7 text-neutral-800 ">
+          Team
+        </td>
+        <td class="py-1 text-base-content/60">Location</td>
+        <td class="py-1 font-bold">
+          <%= @company.hq_city %>, <%= @company.hq_country %>
+        </td>
+      </tr>
+      <tr class='border-b-0 leading-6'>
+        <td></td>
+        <td class="py-1 text-base-content/60">Founders</td>
+        <td class="py-1 font-bold">
+          <%= @company.founders %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div data-controller='toggle-drawer' id='company_entries_table'>
+  <label class="label cursor-pointer w-32">
+    <span class="label-text">Annualized?</span>
+    <%= check_box_tag 'tos', 'on', @annualized, class: 'checkbox', data: {
+      action: "change->toggle-drawer#load",
+      toggle_drawer_url_param: company_company_entries_path(@company, annualized: @annualized)
+    } %>
+  </label>
+  <%= render partial: "company_entries/table", locals: { company_entries: @company_entries, annualized: @annualized, company: @company } %>
 </div>

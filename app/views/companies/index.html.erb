@@ -1,20 +1,30 @@
-<div class="sm:flex sm:items-center mb-4">
-  <div class="sm:flex-auto">
-    <div class="text-sm breadcrumbs">
-      <ul>
-        <li class="text-base font-semibold leading-6 text-base-content breadcrumbs"><%= link_to "Companies", companies_path %></li>
-      </ul>
+<div class="drawer drawer-end" data-controller='toggle-drawer'>
+  <input id="detail-drawer" type="checkbox" class="drawer-toggle" data-toggle-drawer-target="checkbox" autocomplete='off' />
+  <div class="drawer-content w-11/12">
+    <div class="sm:flex sm:items-center mb-4">
+      <div class="sm:flex-auto">
+        <div class="text-sm breadcrumbs">
+          <ul>
+            <li class="text-base font-semibold leading-6 text-base-content breadcrumbs"><%= link_to "Companies", companies_path %></li>
+          </ul>
+        </div>
+        <p class="mt-2 text-sm text-base-content">
+          A list of all the companyes in the database. Click a company's name to explore the company's financials.
+        </p>
+      </div>
+      <div class="col-sm-6 text-end">
+        <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
+      </div>
     </div>
-    <p class="mt-2 text-sm text-base-content">
-      A list of all the companyes in the database. Click a company's name to explore the company's financials.
-    </p>
-  </div>
-  <div class="col-sm-6 text-end">
-    <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
-  </div>
-</div>
-<div class="my-8">
-  <%== pagy_nav(@pagy) %>
-</div>
+    <div class="my-8">
+      <%== pagy_nav(@pagy) %>
+    </div>
 
-<%= render "table", locals: { companies: @companies } %>
+    <%= render "table", locals: { companies: @companies } %>
+  </div> 
+  <div class="drawer-side">
+    <label for="detail-drawer" class="drawer-overlay" style="background-color: transparent;"></label>
+    <div id="company_detail_overview" class="p-4 w-3/6 h-full bg-base-100 text-base-content shadow-2xl" >
+    </div>
+  </div>
+</div>

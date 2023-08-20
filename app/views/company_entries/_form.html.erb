@@ -1,0 +1,151 @@
+<%= form_with(model: [company, company_entry]) do |form| %>
+  <% if company_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(company_entry.errors.count, "error") %> prohibited this company_entry from being saved:</h2>
+
+      <ul>
+      <% company_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-neutral-800">
+        Data Entry Metadata
+      </h2>
+      <p class="mt-1 text-sm leading-6 text-gray-400">
+        Provide context as to where did the information you're entering came
+        from.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+      <div class="col-span-full">
+        <%= form.label :entry_date,
+                   "Date",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.date_field :entry_date,
+                        value: Date.current,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :source_id, "Source",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.select :source_id,
+                    @sources.collect { |s| [s.name, s.id] },
+                    {},
+                    class:
+                      "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :period,
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.collection_radio_buttons :entry_period,
+                    CompanyEntry.entry_periods,
+                    :first,
+                    :last do |b| %>
+                      <%= b.label(class: 'inline-block mr-4') { b.radio_button(class: 'radio radio-primary mr-2') + b.text } %>                    
+                    <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-neutral-800">
+        Cash Flow and Profitability Metrics
+      </h2>
+      <p class="mt-1 text-sm leading-6 text-gray-400">
+        Metrics on the company's health and cash flow.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+      <div class="col-span-full">
+        <%= form.label :revenue,
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :revenue,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :cash_burn,
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :cash_burn,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :gross_profit,
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :gross_profit,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :gross_profit_pct,
+                    "Gross Profit (%)",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :gross_profit_pct, max: 1000, min: -1000, step: 0.01, class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :ebitda, "EBITDA",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :ebitda, class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+    </div>
+  </div>
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-neutral-800">
+        Customer Metrics
+      </h2>
+      <p class="mt-1 text-sm leading-6 text-gray-400">
+        Metrics on the company's customers.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+      <div class="col-span-full">
+        <%= form.label :cac, "CAC",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :cac,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :ltv, "LTV",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :ltv,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :arpu, "ARPU/ACV",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.number_field :arpu,
+                        class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+      <div class="col-span-full">
+        <%= form.label :next_fundraise_at, "Next Fundraising Date",
+                   class: "block text-sm font-medium leading-6 text-neutral-800" %>
+        <%= form.date_field :next_fundraise_at, class:
+                          "block w-full rounded-md border-0 bg-primary/5 py-1.5 text-neutral-800 shadow-sm ring-1 ring-inset ring-primary/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div></div>
+    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+        <div class="col-span-full flex flex-row-reverse">
+          <%= link_to "Cancel", company_path(company), class: "btn btn-link" %>
+          <%= form.submit "#{company_entry.persisted? ? "Edit" : "Add" } Entry", class: 'btn btn-primary' %>
+        </div>
+      </div>
+  </div>
+
+<% end %>

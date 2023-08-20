@@ -63,6 +63,8 @@ GEM
     activerecord (7.0.7)
       activemodel (= 7.0.7)
       activesupport (= 7.0.7)
+    activerecord-cte (0.3.0)
+      activerecord
     activestorage (7.0.7)
       actionpack (= 7.0.7)
       activejob (= 7.0.7)
@@ -120,6 +122,8 @@ GEM
       warden (~> 1.2.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    erb-formatter (0.4.3)
+      syntax_tree (~> 6.0)
     erubi (1.12.0)
     ethon (0.16.0)
       ffi (>= 1.15.0)
@@ -238,6 +242,7 @@ GEM
     pg (1.5.3)
     pretender (0.5.0)
       actionpack (>= 6.1)
+    prettier_print (1.2.1)
     public_suffix (5.0.3)
     puma (5.6.6)
       nio4r (~> 2.0)
@@ -320,6 +325,8 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
+    syntax_tree (6.1.1)
+      prettier_print (>= 1.2.0)
     thor (1.2.2)
     timeout (0.4.0)
     turbo-rails (1.4.0)
@@ -364,6 +371,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-cte (~> 0.3.0)
   annotate
   better_errors
   binding_of_caller
@@ -372,6 +380,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
+  erb-formatter
   friendly_id
   image_processing
   importmap-rails

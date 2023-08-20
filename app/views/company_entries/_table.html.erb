@@ -1,0 +1,46 @@
+<div class="overflow-x-auto overflow-y-auto h-96 max-h-96">
+  <table class="table table-zebra table-pin-rows ">
+    <thead>
+      <tr>
+        <th></th>
+        <th> Entry date</th>
+        <th> User</th>
+        <th> Source</th>
+        <th> Entry period</th>
+        <th> Revenue</th>
+        <th> Cash burn</th>
+        <th> Gross profit</th>
+        <th> Gross profit pct</th>
+        <th> EBITDA</th>
+        <th> Cash on hand</th>
+        <th> CAC</th>
+        <th> LTV</th>
+        <th> ARPU</th>
+        <th> Customer count</th>
+        <th> Next fundraise</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% company_entries.each do |company_entry| %>
+        <%= content_tag :tr, id: dom_id(company_entry), class: dom_class(company_entry) do %>
+          <td><%= link_to 'Edit', edit_company_company_entry_path(company, company_entry), data: { turbo_frame: '_top' }, class: 'link' %></td>
+          <td><%= company_entry.entry_date %></td>
+          <td><%= company_entry.user.name %></td>
+          <td><%= company_entry.source.name %></td>
+          <td><%= annualized ? "Annual" : company_entry.entry_period.humanize %></td>
+          <td><%= annualized ? number_to_currency(company_entry.revenue_annualized) : number_to_currency(company_entry.revenue) %></td>
+          <td><%= annualized ? number_to_currency(company_entry.cash_burn_annualized) : number_to_currency(company_entry.cash_burn) %></td>
+          <td><%= annualized ? number_to_currency(company_entry.gross_profit_annualized) : number_to_currency(company_entry.gross_profit) %></td>
+          <td><%= number_to_percentage(company_entry.gross_profit_pct, precision: 2) %></td>
+          <td><%= annualized ? number_to_currency(company_entry.ebitda) : number_to_currency(company_entry.ebitda_annualized) %></td>
+          <td><%= number_to_currency(company_entry.cash_on_hand) %></td>
+          <td><%= number_to_currency(company_entry.cac) %></td>
+          <td><%= number_to_currency(company_entry.ltv) %></td>
+          <td><%= number_to_currency(company_entry.arpu) %></td>
+          <td><%= number_with_delimiter(company_entry.customer_count) %></td>
+          <td><%= company_entry.next_fundraise_at %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

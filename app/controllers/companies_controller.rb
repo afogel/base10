@@ -3,11 +3,21 @@ class CompaniesController < ApplicationController
 
   # GET /companies or /companies.json
   def index
-    @pagy, @companies = pagy(Company.joins(:business_models, segments: :industry).all.distinct)
+    @pagy, @company_entries = pagy(
+      CompanyEntry.latest_entries
+                  .includes(company: [:business_models, :segments, :industries])
+                  .order("companies.name ASC"),
+      items: params.fetch(:count, 10)
+    )
   end
-
+  
   # GET /companies/1 or /companies/1.json
   def show
+    @pagy, @company_entries = pagy(
+      @company.company_entries.includes(:user, :source, company: [:business_models, :segments, :industries]).order(entry_date: :desc), 
+      items: params.fetch(:count, 10)
+    )
+    @annualized = params[:annualized] ? params[:annualized] == "true" : true
   end
 
   # GET /companies/new
@@ -23,27 +33,19 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
 
-    respond_to do |format|
-      if @company.save
-        format.html { redirect_to company_url(@company), notice: "Company was successfully created." }
-        format.json { render :show, status: :created, location: @company }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
-    end
+    if @company.save
+      redirect_to company_url(@company), notice: "Company was successfully created.", status: :see_other, format: :html
+    else
+      render :new, status: :unprocessable_entity
+    end    
   end
 
   # PATCH/PUT /companies/1 or /companies/1.json
   def update
-    respond_to do |format|
-      if @company.update(company_params)
-        format.html { redirect_to company_url(@company), notice: "Company was successfully updated." }
-        format.json { render :show, status: :ok, location: @company }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
+    if @company.update(company_params)
+      redirect_to company_url(@company), notice: "Company was successfully updated.", status: :see_other, format: :html
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -66,5 +68,13 @@ class CompaniesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def company_params
       params.fetch(:company, {})
+    end
+
+    def sort_column
+      %w{ entry_date entry_period revenue cash_burn gross_profit gross_profit_pct ebitda cash_on_hand cac ltv arpu customer_count next_fundraise_at }.include?(params[:sort]) ? params[:sort] : "entry_date"
+    end
+  
+    def sort_direction
+      %w{ asc desc }.include?(params[:direction]) ? params[:direction] : "asc"
     end
 end
