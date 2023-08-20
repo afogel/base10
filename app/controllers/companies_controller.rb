@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
   def index
     @pagy, @company_entries = pagy(
       CompanyEntry.latest_entries
-                  .includes(company: [:business_models, segments: :industry])
+                  .includes(company: [:business_models, :segments, :industries])
                   .order("company_segments.segment_id ASC")
                   .reorder("companies.name ASC")
                   .reorder(sort_column => sort_direction),
@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1 or /companies/1.json
   def show
     @pagy, @company_entries = pagy(
-      @company.company_entries.reorder(sort_column => sort_direction), 
+      @company.company_entries.includes(:user, :source, company: [:business_models, :segments, :industries]).reorder(sort_column => sort_direction), 
       items: params.fetch(:count, 10)
     )
     @annualized = params[:annualized] ? params[:annualized] == "true" : true

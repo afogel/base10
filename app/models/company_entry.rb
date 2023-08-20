@@ -45,7 +45,7 @@ class CompanyEntry < ApplicationRecord
   enum entry_period: { 
     annual: "year", quarterly: "quarter", monthly: 'month'
   }
-  delegate :name, :segments, to: :company
+  delegate :name, :segments, :industries, to: :company
 
   validates :entry_date, uniqueness: { scope: :company_id }, presence: true
 
