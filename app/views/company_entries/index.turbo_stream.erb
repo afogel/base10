@@ -1,7 +1,7 @@
 <%= turbo_stream.update :company_entries_table  do %>
   <label class="label cursor-pointer w-32">
     <span class="label-text">Annualized?</span>
-    <%= check_box_tag 'tos', 'on', @annualized, class: 'checkbox', data: {
+    <%= check_box_tag 'tos', 'on', @annualized, class: 'checkbox checkbox-primary', data: {
       action: "change->toggle-drawer#load",
       toggle_drawer_url_param: company_company_entries_path(@company, annualized: @annualized)
     } %>
