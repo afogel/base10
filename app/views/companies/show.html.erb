@@ -7,7 +7,6 @@
       </ul>
     </div>
   </div>
-  
 </div>
 <div class="mb-12 flex flex-col">
   <h2 class="text-6xl font-semibold leading-7 text-base-content w-full text-left mb-8 pl-4 flex justify-between"> 
@@ -68,8 +67,8 @@
   </table>
 </div>
 
-<div data-controller='toggle-drawer' id='company_entries_table' >
-  <label class="label cursor-pointer w-52">
+<div data-controller='toggle-drawer' id='company_entries_table'>
+  <label class="label cursor-pointer w-32">
     <span class="label-text">Annualized?</span>
     <%= check_box_tag 'tos', 'on', @annualized, class: 'checkbox', data: {
       action: "change->toggle-drawer#load",

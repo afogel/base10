@@ -1,5 +1,5 @@
-<div class="overflow-x-auto">
-  <table class="table table-zebra table-pin-rows">
+<div class="overflow-x-auto overflow-y-auto h-96 max-h-96">
+  <table class="table table-zebra table-pin-rows ">
     <thead>
       <tr>
         <th></th>
@@ -23,7 +23,7 @@
     <tbody>
       <% company_entries.each do |company_entry| %>
         <%= content_tag :tr, id: dom_id(company_entry), class: dom_class(company_entry) do %>
-          <td><%= link_to 'Edit', edit_company_company_entry_path(company, company_entry), data: { turbo_frame: '_top' }, class: 'btn btn-sm' %></td>
+          <td><%= link_to 'Edit', edit_company_company_entry_path(company, company_entry), data: { turbo_frame: '_top' }, class: 'link' %></td>
           <td><%= company_entry.entry_date %></td>
           <td><%= company_entry.user.name %></td>
           <td><%= company_entry.source.name %></td>

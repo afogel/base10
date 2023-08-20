@@ -132,7 +132,7 @@ potential_values = {
 source_records = Source.all
 Company.all.each_with_index do |company, idx|
   # randomly create 1-5 entries for each company
-  rand(1..5).times do
+  rand(5..10).times do
     company.company_entries.create(
       user: user,
       source: source_records.sample,
