@@ -28,27 +28,19 @@ class CompanyEntriesController < ApplicationController
     @company_entry = @company.company_entries.new(company_entry_params)
     @company_entry.user = current_user
 
-    respond_to do |format|
-      if @company_entry.save
-        format.html { redirect_to company_url(@company), notice: "Company entry was successfully created." }
-        format.json { render :show, status: :created, location: @company_entry }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @company_entry.errors, status: :unprocessable_entity }
-      end
+    if @company_entry.save
+      redirect_to company_url(@company, format: :html), notice: "Company entry was successfully created."
+    else
+      render :new, status: :unprocessable_entity, format: :html
     end
   end
 
   # PATCH/PUT /company_entries/1 or /company_entries/1.json
   def update
-    respond_to do |format|
-      if @company_entry.update(company_entry_params)
-        format.html { redirect_to company_url(@company), notice: "Company entry was successfully updated." }
-        format.json { render :show, status: :ok, location: @company_entry }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @company_entry.errors, status: :unprocessable_entity }
-      end
+    if @company_entry.update(company_entry_params)
+      redirect_to company_url(@company, format: :html), notice: "Company entry was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

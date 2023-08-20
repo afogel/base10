@@ -6,9 +6,7 @@ class CompaniesController < ApplicationController
     @pagy, @company_entries = pagy(
       CompanyEntry.latest_entries
                   .includes(company: [:business_models, :segments, :industries])
-                  .order("company_segments.segment_id ASC")
-                  .reorder("companies.name ASC")
-                  .reorder(sort_column => sort_direction),
+                  .order("companies.name ASC"),
       items: params.fetch(:count, 10)
     )
   end
@@ -16,7 +14,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1 or /companies/1.json
   def show
     @pagy, @company_entries = pagy(
-      @company.company_entries.includes(:user, :source, company: [:business_models, :segments, :industries]).reorder(sort_column => sort_direction), 
+      @company.company_entries.includes(:user, :source, company: [:business_models, :segments, :industries]).order(entry_date: :desc), 
       items: params.fetch(:count, 10)
     )
     @annualized = params[:annualized] ? params[:annualized] == "true" : true
@@ -35,27 +33,19 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
 
-    respond_to do |format|
-      if @company.save
-        format.html { redirect_to company_url(@company), notice: "Company was successfully created." }
-        format.json { render :show, status: :created, location: @company }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
-    end
+    if @company.save
+      redirect_to company_url(@company), notice: "Company was successfully created.", status: :see_other, format: :html
+    else
+      render :new, status: :unprocessable_entity
+    end    
   end
 
   # PATCH/PUT /companies/1 or /companies/1.json
   def update
-    respond_to do |format|
-      if @company.update(company_params)
-        format.html { redirect_to company_url(@company), notice: "Company was successfully updated." }
-        format.json { render :show, status: :ok, location: @company }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
+    if @company.update(company_params)
+      redirect_to company_url(@company), notice: "Company was successfully updated.", status: :see_other, format: :html
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
