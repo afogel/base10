@@ -9,18 +9,17 @@
           </ul>
         </div>
         <p class="mt-2 text-sm text-base-content">
-          A list of all the companyes in the database. Click a company's name to explore the company's financials.
+          A list of all the companies in the database. Click a company's name to explore its financials.
         </p>
       </div>
       <div class="col-sm-6 text-end">
         <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
       </div>
     </div>
+    <%= render "table", locals: { companies: @companies } %>
     <div class="my-8">
       <%== pagy_nav(@pagy) %>
     </div>
-
-    <%= render "table", locals: { companies: @companies } %>
   </div> 
   <div class="drawer-side">
     <label for="detail-drawer" class="drawer-overlay" style="background-color: transparent;"></label>
