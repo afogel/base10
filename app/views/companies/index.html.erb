@@ -12,9 +12,6 @@
           A list of all the companies in the database. Click a company's name to explore its financials.
         </p>
       </div>
-      <div class="col-sm-6 text-end">
-        <%#= link_to "Add New Company", new_company_path, class: 'btn btn-primary' %>
-      </div>
     </div>
     <%= render "table", locals: { companies: @companies } %>
     <div class="my-8">

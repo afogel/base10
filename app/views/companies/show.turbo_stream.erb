@@ -6,9 +6,14 @@
       </svg>
     <% end %>
     <div class="h-full p-14 flex flex-col">
-      <h2 class="text-5xl font-semibold leading-10 text-base-content w-full text-left mb-8 pl-4"> 
-        <%= @company.name %>
-      </h2>
+      <div class="flex justify-between">
+        <h2 class="text-5xl font-semibold leading-10 text-base-content w-full text-left mb-8 pl-4"> 
+          <%= @company.name %>
+        </h2>
+        <div class="col-sm-6 text-end">
+          <%= link_to "New Entry", new_company_company_entry_path(@company), class: 'btn btn-primary' %>
+        </div>
+      </div>
       <table class="table col-span-full">
         <tbody>
           <tr class='border-b-0 leading-6'>
@@ -59,7 +64,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="pt-8">
+      <div class="pt-8 border-b-1">
         <label class="label cursor-pointer w-52">
           <span class="label-text">Annualized?</span>
           <%= check_box_tag 'tos', 'on', @annualized, class: 'checkbox checkbox-primary', data: {
